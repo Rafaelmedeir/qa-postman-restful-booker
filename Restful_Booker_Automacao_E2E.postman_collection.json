@@ -1,0 +1,406 @@
+{
+  "info": {
+    "_postman_id": "49245dee-2a21-45ef-a4f5-8d26d548ad12",
+    "name": "Restful-booker",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52548174",
+    "_collection_link": "https://go.postman.co/collection/52548174-49245dee-2a21-45ef-a4f5-8d26d548ad12?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Fluxo E2E - Ciclo de Vida da Reserva",
+      "item": [
+        {
+          "name": "01 - POST Auth - CreateToken",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Verifica se o o login foi realizado com sucesso e se token foi retornado.\r",
+                  "pm.test(\"Deve retornar status 200 para autenticação bem-sucedida\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "})\r",
+                  "\r",
+                  "// Converte a resposta da requisição ao formato JSON (parsing) e atribui o objeto JSON resultante à constante 'resposta, permitindo acessar os dados contidos nela facilmente.\r",
+                  "const resposta = pm.response.json();\r",
+                  "\r",
+                  "// Captura o token salvo na constante \"resposta\" e o armazena na variável de coleção 'token' para reutilização em outras requisições, seguindo o princípio DRY (Don't Repeat Yourself).\r",
+                  "pm.collectionVariables.set(\"token\", resposta.token);\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\" : \"admin\",\r\n\"password\" : \"password123\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_URL}}/auth",
+              "host": [
+                "{{base_URL}}"
+              ],
+              "path": [
+                "auth"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "02 - POST CreateBooking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Testa se o status da resposta é 200, indicando que a reserva foi criada com sucesso.\r",
+                  "pm.test(\"Deve retornar status 200 ao criar nova reserva\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "})\r",
+                  "\r",
+                  "// Converte a resposta da requisição ao formato JSON e atribui o objeto JSON resultante à constante 'resposta, permitindo acessar os dados contidos nela facilmente.\r",
+                  "const resposta = pm.response.json();\r",
+                  "\r",
+                  "// Define uma variável de coleção chamada 'id_da_reserva' e atribui o valor da chave 'bookingid' da resposta JSON à ela. Isso permite que o valor da reserva seja armazenado e usado em outras solicitações futuras.\r",
+                  "pm.collectionVariables.set(\"id_da_reserva\", resposta.bookingid);\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\" : \"João\",\r\n    \"lastname\" : \"Ninguém\",\r\n    \"totalprice\" : 1101,\r\n    \"depositpaid\" : true,\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"2028-01-01\",\r\n        \"checkout\" : \"2029-01-01\"\r\n    },\r\n    \"additionalneeds\" : \"AC\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_URL}}/booking",
+              "host": [
+                "{{base_URL}}"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "03 - PUT Update Booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Testa se o status da resposta é 200, indicando que a reserva foi atualizada com sucesso.\r",
+                  "pm.test(\"Deve retornar status 200 ao atualizar a reserva por inteiro\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "})\r",
+                  "\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"Ada\",\r\n    \"lastname\": \"Lovelace\",\r\n    \"totalprice\": 1024,\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"1970-01-01\",\r\n        \"checkout\": \"2038-01-19\"\r\n    },\r\n    \"additionalneeds\": \"Máquina de expresso e Wi-Fi estável para caçar bugs\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_URL}}/booking/{{id_da_reserva}}",
+              "host": [
+                "{{base_URL}}"
+              ],
+              "path": [
+                "booking",
+                "{{id_da_reserva}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "04 - PATCH Partial Update Booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Testa se o status da resposta é 200 (ok), indicando que a reserva foi parcialmente atualizada com sucesso.\r",
+                  "pm.test(\"Deve retornar status 200 na atualização parcial da reserva\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "})\r",
+                  "\r",
+                  "const resposta = pm.response.json();\r",
+                  "\r",
+                  "// Verifica se o nome e o sobrenome foram atualizados corretamente com os dados dinâmicos salvos nas collectionVariables e passados no request body.\r",
+                  "pm.test(\"Deve confirmar que nome e sobrenome foram corretamente atualizados com os dados dinâmicos\", () => {\r",
+                  "    pm.expect(resposta.firstname).to.eql(pm.collectionVariables.get(\"nome_atualizado\"));\r",
+                  "    pm.expect(resposta.lastname).to.eql(pm.collectionVariables.get(\"sobrenome_atualizado\"));\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Define os dados de teste dinamicamente antes da requisição ser enviada. Esses valores serão injetados no Body (JSON) e usados posteriormente na aba Tests para garantir que a API salvou a informação correta.\r",
+                  "pm.collectionVariables.set(\"nome_atualizado\", \"Grace\");\r",
+                  "pm.collectionVariables.set(\"sobrenome_atualizado\", \"Hopper\");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"{{nome_atualizado}}\",\r\n    \"lastname\": \"{{sobrenome_atualizado}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_URL}}/booking/{{id_da_reserva}}",
+              "host": [
+                "{{base_URL}}"
+              ],
+              "path": [
+                "booking",
+                "{{id_da_reserva}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "05 - DEL DeleteBooking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "//Testa se a API segue os princípios da arquitetura REST para o método DELETE, ou seja, se devolve o status code 200 (ok) ou 204 (no content) quando o recurso é excluído com sucesso. Este teste falhará para a API Restfull-booker, visto que ela possui um erro estrutural: devolve 201 (created) quando um recurso é excluído com sucesso ao invés de 204 (no content) ou 200 (ok), confoerme o padrão especificado pela arquitetura REST. O que, em uma situação real, seria passível de abertura de um chamado para alertar a equipe de desenvolvimento, incluindo anexo do print dessa tela exata (que apresenta a falha no teste apontando o erro estrutural).\r",
+                  "\r",
+                  "pm.test(\"Deve retornar status 200 ou 204 na exclusão do recurso (Validação Arquitetural)\", ()=> {\r",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 204])\r",
+                  "})\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_URL}}/booking/{{id_da_reserva}}",
+              "host": [
+                "{{base_URL}}"
+              ],
+              "path": [
+                "booking",
+                "{{id_da_reserva}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "06 - GET GetBooking (Validação de Exclusão)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Testa se o id da reserva não foi encontrado, ou seja, se a a resposta é 404 Not Found para confirmar se um delete foi bem sucedido, por exemplo\r",
+                  "pm.test(\"Deve retornar status 404 atestando que a reserva foi excluída do banco de dados\", () => {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "})\r",
+                  "\r",
+                  "// Limpeza das collectionVariables dinâmicas assim que o fluxo termina para que testes posteriores sejam inicializados sem \"sujeira\" de seus antecessores. \r",
+                  "pm.collectionVariables.unset(\"id_da_reserva\");\r",
+                  "pm.collectionVariables.unset(\"token\");\r",
+                  "pm.collectionVariables.unset(\"nome_atualizado\");\r",
+                  "pm.collectionVariables.unset(\"sobrenome_atualizado\");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_URL}}/booking/{{id_da_reserva}}",
+              "host": [
+                "{{base_URL}}"
+              ],
+              "path": [
+                "booking",
+                "{{id_da_reserva}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_URL",
+      "value": "https://restful-booker.herokuapp.com"
+    }
+  ]
+}
