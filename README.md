@@ -31,7 +31,7 @@ Como a API Restful-Booker é um ambiente de treinamento, ela possui algumas falh
 3. Clique nos três pontinhos da Collection e selecione Run (Executar).
 4. Veja todas as validações passando automaticamente!
 
-## 👨‍💻 Autor
+## Autor
 **Rafael Medeiros**
 *Analista de QA Júnior*
 
