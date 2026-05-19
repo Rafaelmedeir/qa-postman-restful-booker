@@ -35,4 +35,4 @@ Como a API Restful-Booker é um ambiente de treinamento, ela possui algumas falh
 **Rafael Medeiros**
 *Analista de QA Júnior*
 
-[LinkedIn](https://www.linkedin.com/in/rafaelmedeir/) | [GitHub](https://github.com/Rafaelmedeir) | [E-mail](mailto:rafael.medeir.rm@gmail.com)
+[GitHub](https://github.com/Rafaelmedeir) | [E-mail](mailto:rafael.medeir.rm@gmail.com)
