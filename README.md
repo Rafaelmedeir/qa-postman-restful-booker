@@ -29,7 +29,7 @@ Como a API Restful-Booker é um ambiente de treinamento, ela possui algumas falh
 1. Faça o clone ou baixe este repositório.
 2. Importe o arquivo .json da Collection para o seu Postman.
 3. Clique nos três pontinhos da Collection e selecione Run (Executar).
-4. Veja todas as validações passando automaticamente!
+4. Veja o fluxo executar automaticamente (6 validações passando e 1 falha intencional no DELETE revelando o bug do status 201).
 
 ## Autor
 **Rafael Medeiros**  
