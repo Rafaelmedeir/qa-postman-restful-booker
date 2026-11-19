@@ -32,7 +32,7 @@ Como a API Restful-Booker é um ambiente de treinamento, ela possui algumas falh
 4. Veja todas as validações passando automaticamente!
 
 ## Autor
-**Rafael Medeiros**
-*Analista de QA Júnior*
+**Rafael Medeiros**  
+*Tecnologia da Informação | Desenvolvimento de Software*
 
-[GitHub](https://github.com/Rafaelmedeir) | [E-mail](mailto:rafael.medeir.rm@gmail.com)
+[Contato por e-mail](mailto:rafael.medeir.rm@gmail.com)
